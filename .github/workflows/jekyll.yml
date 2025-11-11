@@ -43,7 +43,17 @@ jobs:
       - name: Install Bundler (explicit)
         # install bundler explicitly to get clearer failure logs and control version
         run: |
-          gem install bundler --no-document
+          echo "--- ruby version ---"
+          ruby -v
+          echo "--- gem env ---"
+          gem env
+          echo "--- rubygems sources ---"
+          gem sources --list
+          echo "--- try installing bundler (no-document, verbose) ---"
+          gem install bundler --no-document --verbose || (
+            echo "gem install failed, retry with pinned bundler version 2.4.13" &&
+            gem install bundler -v 2.4.13 --no-document --verbose
+          )
 
       - name: Install gems (bundle install)
         # run bundle install explicitly so failures are visible in logs and we can retry
