@@ -40,3 +40,6 @@ backup/root-backups/
 
 # optional: ignore the entire backup/ if you don't want backups in the repo
 backup/
+
+# githubcopilot files
+.github/copilot-instructions.md
