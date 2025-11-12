@@ -94,7 +94,7 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 # Friends (Add your real friend links here)
 friends: [
     {
-        title: "Hux Blog",
+    title: "Template",
         href: "https://huangxuan.me"
     }
     # Add more friend links here

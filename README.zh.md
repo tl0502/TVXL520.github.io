@@ -1,8 +1,8 @@
-# Hux blog 模板
+# Blog 模板
 
-### [我的博客在这里](http://huxpro.github.io)
+### [示例站点](https://TVXL520.github.io)
 
-### [模板在这里](http://huangxuan.me/huxblog-boilerplate/)
+### [模板示例页面](http://huangxuan.me/huxblog-boilerplate/)
 
 我的博客仓库——`huxpro.github.io`，是经常修改的，而且还会有人乱提交代码，因此给大家做了一个稳定版的模板。大家可以直接fork模板——`huxblog-boilerplate`,要改的地方我都说明了。或者可以直接下载zip到本地自己去修改。
 
@@ -10,9 +10,9 @@
 
 ##### New Feature (V1.5.2)
 
-* 当你fork了我的仓库之后，还要删掉里面的关于我的文档是不是感到略烦躁呢？**Boilerplate** 模板将帮助你快速开始，方便合并与更新。
+* 当你 fork 了仓库之后，模板将帮助你快速开始，方便合并与更新。
 * `-apple-system`被添加到了字体规则里面了，这套字体格式能将iOS9默认的新字体**San Francisco**表现的非常漂亮。
-* 解决了代码过长自动换行的bug,替换为横向滚动条。详情请见[issue#15](https://github.com/Huxpro/huxpro.github.io/issues/15)
+* 解决了代码过长自动换行的 bug，替换为横向滚动条。详情请见 upstream issue（链接保留）。
 
 ###### 其他历史版本个人觉得没有必要了解，看看英文就行了。
 
@@ -21,23 +21,23 @@
 ## 支持
 
 * 你可以自由的fork。如果你能将我的信息和github的地址放在你的页面底部做成链接，我将非常感谢你。
-* 如果你喜欢我的这个博客模板，请在`huxpro.github.io`这个repository点个赞——右上角**star**一下。
+* 如果你喜欢这个博客模板，请在 upstream 仓库点个赞（star）。
 
 ## 说明文档
 
-* 开始
-	* [环境要求](#environment)
-	* [开始](#get-started)
-	* [写一篇博文](#write-posts)
-* 各组成部分
-	* [侧边栏](#sidebar)
-	* [mini-about-me](#mini-about-me)
-	* [标签云](#featured-tags)
-	* [好友链接](#friends)
-	* [HTML5演示文档布局](#keynote-layout)
-* 评论与 Google/Baidu Analytics
-	* [评论](#comment)
-	* [网站分析](#analytics) 
+```
+# Site settings
+title: TVXL Blog             # 你的博客网站标题
+SEOTitle: TVXL Blog		# 在后面会详细谈到
+description: "Cool Blog"    # 随便说点，描述一下
+
+# SNS settings      
+github_username: tvxl520     # 你的github账号（示例）
+weibo_username: tvxl520      # 你的微博账号，底部链接会自动更新的。
+
+# Build settings
+# paginate: 10              # 一页你准备放几篇文章
+```
 * 高级部分
 	* [自定义](#customization)
 	* [标题底图](#header-image)
@@ -56,13 +56,13 @@
 
 ```
 # Site settings
-title: Hux Blog             # 你的博客网站标题
-SEOTitle: Hux Blog			# 在后面会详细谈到
+title: TVXL Blog             # 你的博客网站标题
+SEOTitle: TVXL Blog		# 在后面会详细谈到
 description: "Cool Blog"    # 随便说点，描述一下
 
 # SNS settings      
-github_username: huxpro     # 你的github账号
-weibo_username: huxpro      # 你的微博账号，底部链接会自动更新的。
+github_username: tvxl520     # 你的github账号（示例）
+weibo_username: tvxl520      # 你的微博账号，底部链接会自动更新的。
 
 # Build settings
 # paginate: 10              # 一页你准备放几篇文章
@@ -82,7 +82,7 @@ layout:     post
 title:      "Hello 2015"
 subtitle:   "Hello World, Hello Blog"
 date:       2015-01-29 12:00:00
-author:     "Hux"
+author:     "TVXL"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - Life
@@ -100,7 +100,7 @@ tags:
 # Sidebar settings
 sidebar: true  #添加侧边栏
 sidebar-about-description: "简单的描述一下你自己"
-sidebar-avatar: /img/avatar-hux.jpg     #你的大头贴，请使用绝对地址.
+sidebar-avatar: /img/avatar.png     #你的大头贴，请使用绝对地址.
 ```
 
 侧边栏是响应式布局的，当屏幕尺寸小于992px的时候，侧边栏就会移动到底部。具体请见bootstrap栅格系统 <http://v3.bootcss.com/css/>
@@ -121,7 +121,7 @@ featured-tags: true
 featured-condition-size: 1     # A tag will be featured if the size of it is more than this condition value
 ```
 
-唯一需要注意的是`featured-condition-size`: A tag will be featured if the size of it is more than this condition value. （也不知道Hux是想表达什么意思，请作者解答）
+唯一需要注意的是`featured-condition-size`: A tag will be featured if the size of it is more than this condition value.
  
 内部有一个条件模板 `{% if tag[1].size > {{site.featured-condition-size}} %}` 是用来做筛选过滤的.
 
@@ -211,15 +211,16 @@ There are a number of tasks it performs like minification of the JavaScript, com
 #### Header Image
 
 标题底图是可以自己选的，看看几篇示例post你就知道如何设置了，详情请见：
-  [issue #6 ](https://github.com/Huxpro/huxpro.github.io/issues/6) asked, **how to make it looks great?**
+    [issue #6 ](https://github.com/Huxpro/huxpro.github.io/issues/6) asked, **how to make it looks great?**
   
 标题底图的选取完全是看个人的审美了，我也帮不了你。每一篇文章可以有不同的底图，你想放什么就放什么，最后宽度要够，大小不要太大，否则加载慢啊。
 
 但是需要注意的是本模板的标题是**白色**的，所以背景色要设置为**灰色**或者**黑色**，总之深色系就对了。
 
+
 #### SEO Title
 
-我的博客标题是 **“Hux Blog”** 但是我想要在搜索的时候显示 **“黄玄的博客 | Hux Blog”** ，这个就需要SEO Title来定义了。
+我的博客标题是 **“TVXL Blog”** 但是我想要在搜索的时候显示 **“黄玄的博客 | TVXL Blog”** ，这个就需要SEO Title来定义了。
 
 其实这个SEO Title就是定义了<head><title>标题</title></head>这个里面的东西和多说分享的标题，你可以自行修改的。
 
