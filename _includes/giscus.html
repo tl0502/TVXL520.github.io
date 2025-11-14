@@ -1,20 +1,42 @@
 <!-- Giscus Comment System -->
 <!-- Docs: https://giscus.app -->
-<script src="https://giscus.app/client.js"
-        data-repo="{{ site.giscus.repo }}"
-        data-repo-id="{{ site.giscus.repo-id }}"
-        data-category="{{ site.giscus.category }}"
-        data-category-id="{{ site.giscus.category-id }}"
-        data-mapping="{{ site.giscus.mapping }}"
-        data-strict="0"
-        data-reactions-enabled="{{ site.giscus.reactions-enabled }}"
-        data-emit-metadata="{{ site.giscus.emit-metadata }}"
-        data-input-position="top"
-        data-theme="{{ site.giscus.theme }}"
-        data-lang="{{ site.giscus.lang }}"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
+<div id="giscus-container"></div>
+
+<script>
+  // Initialize Giscus with current theme
+  function initGiscus() {
+    // Get current theme from document
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const theme = isDark ? 'dark' : 'light';
+
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '{{ site.giscus.repo }}');
+    script.setAttribute('data-repo-id', '{{ site.giscus.repo-id }}');
+    script.setAttribute('data-category', '{{ site.giscus.category }}');
+    script.setAttribute('data-category-id', '{{ site.giscus.category-id }}');
+    script.setAttribute('data-mapping', '{{ site.giscus.mapping }}');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '{{ site.giscus.reactions-enabled }}');
+    script.setAttribute('data-emit-metadata', '{{ site.giscus.emit-metadata }}');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', theme);
+    script.setAttribute('data-lang', '{{ site.giscus.lang }}');
+    script.setAttribute('data-loading', 'lazy');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+
+    document.getElementById('giscus-container').appendChild(script);
+  }
+
+  // Wait for theme to be initialized, then load Giscus
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initGiscus, 100);
+    });
+  } else {
+    setTimeout(initGiscus, 100);
+  }
 </script>
 
 <noscript>请启用 JavaScript 以查看评论。</noscript>

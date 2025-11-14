@@ -1,0 +1,461 @@
+/*!
+ * Theme Switcher for TVXL Blog
+ * Dark mode and light mode with system preference detection
+ */
+
+/* Light mode (default) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #404040;
+  --text-secondary: #808080;
+  --text-muted: #bfbfbf;
+  --link-color: #404040;
+  --link-hover: #0085A1;
+  --border-color: #eee;
+  --code-bg: #f5f5f5;
+  --blockquote-color: #808080;
+  --navbar-bg: rgba(255, 255, 255, 0.9);
+  --navbar-shadow: rgba(0, 0, 0, 0.05);
+  --intro-bg: #282828;
+  --card-bg: #ffffff;
+  --sidebar-text: #bfbfbf;
+  --sidebar-heading: #808080;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #e4e4e4;
+  --text-secondary: #b0b0b0;
+  --text-muted: #707070;
+  --link-color: #e4e4e4;
+  --link-hover: #4db8d8;
+  --border-color: #333333;
+  --code-bg: #2d2d2d;
+  --blockquote-color: #b0b0b0;
+  --navbar-bg: rgba(26, 26, 26, 0.9);
+  --navbar-shadow: rgba(255, 255, 255, 0.05);
+  --intro-bg: #0a0a0a;
+  --card-bg: #242424;
+  --sidebar-text: #b0b0b0;
+  --sidebar-heading: #909090;
+}
+
+/* Apply theme variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:hover,
+a:focus {
+  color: var(--link-hover);
+}
+
+blockquote {
+  color: var(--blockquote-color);
+}
+
+/* Navbar theming */
+.navbar-custom {
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav li a {
+  color: white;
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .nav li a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Dark mode navbar - also keep transparent at top */
+[data-theme="dark"] .navbar-custom {
+  background-color: transparent;
+}
+
+[data-theme="dark"] .navbar-custom .navbar-brand,
+[data-theme="dark"] .navbar-custom .nav li a {
+  color: white;
+}
+
+/* Fixed navbar (when scrolling) */
+.navbar-custom.is-fixed {
+  background-color: var(--navbar-bg) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.navbar-custom.is-fixed .navbar-brand,
+.navbar-custom.is-fixed .nav li a {
+  color: var(--text-color) !important;
+}
+
+.navbar-custom.is-fixed .navbar-brand:hover,
+.navbar-custom.is-fixed .navbar-brand:focus,
+.navbar-custom.is-fixed .nav li a:hover,
+.navbar-custom.is-fixed .nav li a:focus {
+  color: var(--link-hover) !important;
+}
+
+/* Mobile navbar collapse */
+@media only screen and (max-width: 767px) {
+  /* Disable scroll behavior on mobile */
+  .navbar-custom {
+    position: fixed !important;
+    top: 0 !important;
+    transform: none !important;
+  }
+
+  .navbar-custom.is-fixed,
+  .navbar-custom.is-visible {
+    transform: none !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid transparent !important;
+  }
+
+  .navbar-custom.is-fixed .navbar-brand,
+  .navbar-custom.is-fixed .nav li a,
+  .navbar-custom.is-visible .navbar-brand,
+  .navbar-custom.is-visible .nav li a {
+    color: white !important;
+  }
+
+  /* Keep theme toggle white in navbar (not in dropdown) */
+  .navbar-custom .theme-toggle:not(.navbar-collapse .theme-toggle),
+  .navbar-custom.is-fixed .theme-toggle:not(.navbar-collapse .theme-toggle) {
+    color: white !important;
+  }
+
+  .navbar-default .navbar-collapse {
+    background: var(--card-bg) !important;
+  }
+
+  .navbar-default .navbar-collapse,
+  #huxblog_navbar .navbar-collapse {
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  [data-theme="dark"] .navbar-default .navbar-collapse,
+  [data-theme="dark"] #huxblog_navbar .navbar-collapse {
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Fix mobile menu text color */
+  .navbar-collapse .nav li a {
+    color: var(--text-color) !important;
+  }
+
+  .navbar-collapse .nav li a:hover,
+  .navbar-collapse .nav li a:active {
+    color: var(--link-hover) !important;
+  }
+
+  /* Fix theme toggle in mobile menu */
+  .navbar-collapse .theme-toggle {
+    color: var(--text-color) !important;
+    text-shadow: none;
+  }
+
+  .navbar-collapse .theme-toggle:hover {
+    color: var(--link-hover) !important;
+  }
+
+  /* Keep navbar toggle button white */
+  .navbar-custom .navbar-toggle .icon-bar,
+  .navbar-custom.is-fixed .navbar-toggle .icon-bar {
+    background-color: white !important;
+  }
+}
+
+/* Navbar toggle button (hamburger menu) */
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: white;
+}
+
+.navbar-custom.is-fixed .navbar-toggle .icon-bar {
+  background-color: var(--text-color) !important;
+}
+
+.navbar-default .navbar-toggle:active {
+  background-color: var(--border-color) !important;
+}
+
+/* Intro header */
+.intro-header .site-heading,
+.intro-header .post-heading,
+.intro-header .page-heading {
+  color: #ffffff;
+}
+
+/* Post preview */
+.post-preview > a {
+  color: var(--text-color);
+}
+
+.post-preview > a:hover,
+.post-preview > a:focus {
+  color: var(--link-hover);
+}
+
+.post-preview > .post-meta {
+  color: var(--text-secondary);
+}
+
+/* Sidebar */
+.sidebar-container {
+  color: var(--sidebar-text);
+}
+
+.sidebar-container h5,
+.sidebar-container h5 a {
+  color: var(--sidebar-heading) !important;
+}
+
+/* Code blocks */
+pre,
+code {
+  background-color: var(--code-bg);
+}
+
+/* Syntax highlighting */
+.highlight pre,
+pre,
+.highlight .hll {
+  background-color: var(--code-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Dark mode syntax highlighting adjustments */
+[data-theme="dark"] .highlight .c { color: #8b949e; }
+[data-theme="dark"] .highlight .err { color: #f85149; background-color: transparent; }
+[data-theme="dark"] .highlight .k { color: #ff7b72; }
+[data-theme="dark"] .highlight .o { color: #ff7b72; }
+[data-theme="dark"] .highlight .cm { color: #8b949e; }
+[data-theme="dark"] .highlight .cp { color: #8b949e; }
+[data-theme="dark"] .highlight .c1 { color: #8b949e; }
+[data-theme="dark"] .highlight .cs { color: #8b949e; }
+[data-theme="dark"] .highlight .gd { color: #ffa198; background-color: #490202; }
+[data-theme="dark"] .highlight .ge { color: #e4e4e4; }
+[data-theme="dark"] .highlight .gr { color: #ffa198; }
+[data-theme="dark"] .highlight .gh { color: #79c0ff; }
+[data-theme="dark"] .highlight .gi { color: #56d364; background-color: #0f5323; }
+[data-theme="dark"] .highlight .go { color: #8b949e; }
+[data-theme="dark"] .highlight .gp { color: #8b949e; }
+[data-theme="dark"] .highlight .gs { font-weight: bold; }
+[data-theme="dark"] .highlight .gu { color: #d2a8ff; }
+[data-theme="dark"] .highlight .gt { color: #ff7b72; }
+[data-theme="dark"] .highlight .kc { color: #79c0ff; }
+[data-theme="dark"] .highlight .kd { color: #ff7b72; }
+[data-theme="dark"] .highlight .kn { color: #ff7b72; }
+[data-theme="dark"] .highlight .kp { color: #79c0ff; }
+[data-theme="dark"] .highlight .kr { color: #ff7b72; }
+[data-theme="dark"] .highlight .kt { color: #ff7b72; }
+[data-theme="dark"] .highlight .m { color: #79c0ff; }
+[data-theme="dark"] .highlight .s { color: #a5d6ff; }
+[data-theme="dark"] .highlight .na { color: #79c0ff; }
+[data-theme="dark"] .highlight .nb { color: #ffa657; }
+[data-theme="dark"] .highlight .nc { color: #f0883e; }
+[data-theme="dark"] .highlight .no { color: #79c0ff; }
+[data-theme="dark"] .highlight .nd { color: #d2a8ff; }
+[data-theme="dark"] .highlight .ni { color: #ffa657; }
+[data-theme="dark"] .highlight .ne { color: #f0883e; }
+[data-theme="dark"] .highlight .nf { color: #d2a8ff; }
+[data-theme="dark"] .highlight .nl { color: #79c0ff; }
+[data-theme="dark"] .highlight .nn { color: #ff7b72; }
+[data-theme="dark"] .highlight .nt { color: #7ee787; }
+[data-theme="dark"] .highlight .nv { color: #79c0ff; }
+[data-theme="dark"] .highlight .ow { color: #ff7b72; }
+[data-theme="dark"] .highlight .w { color: #e4e4e4; }
+[data-theme="dark"] .highlight .mf { color: #79c0ff; }
+[data-theme="dark"] .highlight .mh { color: #79c0ff; }
+[data-theme="dark"] .highlight .mi { color: #79c0ff; }
+[data-theme="dark"] .highlight .mo { color: #79c0ff; }
+[data-theme="dark"] .highlight .sb { color: #a5d6ff; }
+[data-theme="dark"] .highlight .sc { color: #a5d6ff; }
+[data-theme="dark"] .highlight .sd { color: #a5d6ff; }
+[data-theme="dark"] .highlight .s2 { color: #a5d6ff; }
+[data-theme="dark"] .highlight .se { color: #79c0ff; }
+[data-theme="dark"] .highlight .sh { color: #79c0ff; }
+[data-theme="dark"] .highlight .si { color: #a5d6ff; }
+[data-theme="dark"] .highlight .sx { color: #a5d6ff; }
+[data-theme="dark"] .highlight .sr { color: #79c0ff; }
+[data-theme="dark"] .highlight .s1 { color: #a5d6ff; }
+[data-theme="dark"] .highlight .ss { color: #a5d6ff; }
+[data-theme="dark"] .highlight .bp { color: #79c0ff; }
+[data-theme="dark"] .highlight .vc { color: #79c0ff; }
+[data-theme="dark"] .highlight .vg { color: #79c0ff; }
+[data-theme="dark"] .highlight .vi { color: #79c0ff; }
+[data-theme="dark"] .highlight .il { color: #79c0ff; }
+
+/* Cards and containers */
+.post-container,
+.card {
+  background-color: var(--card-bg);
+}
+
+/* Footer */
+footer .copyright a {
+  color: var(--link-hover);
+}
+
+/* Pager */
+.pager li > a,
+.pager li > span {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.pager li > a:hover,
+.pager li > a:focus {
+  color: white;
+  background-color: var(--link-hover);
+  border-color: var(--link-hover);
+}
+
+/* Horizontal rules */
+hr {
+  border-color: var(--border-color);
+}
+
+/* Post preview */
+.post-preview {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Forms */
+.floating-label-form-group {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Tags */
+.tags a {
+  border: 1px solid var(--text-muted);
+  color: var(--text-secondary);
+}
+
+.tags a:hover,
+.tags a:active {
+  border-color: var(--link-hover);
+  color: var(--link-hover);
+}
+
+/* Theme toggle button in navbar - styled like nav links */
+.theme-toggle-nav {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: white;
+  transition: all 0.3s ease;
+  outline: none;
+  user-select: none;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:hover {
+  background: none;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-toggle:active {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.theme-toggle:focus {
+  outline: none;
+}
+
+/* Desktop nav link style */
+@media only screen and (min-width: 768px) {
+  .theme-toggle {
+    padding: 20px;
+  }
+}
+
+/* Dark mode - theme toggle stays white at top */
+[data-theme="dark"] .theme-toggle {
+  color: white;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Theme text styles */
+.theme-toggle span {
+  transition: all 0.3s ease;
+  display: inline;
+}
+
+.theme-separator {
+  opacity: 0.6;
+  margin: 0 2px;
+}
+
+/* Light mode - "明" is more prominent */
+.theme-light {
+  opacity: 1;
+  font-weight: 800;
+}
+
+.theme-dark {
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+/* Dark mode - "暗" is more prominent */
+[data-theme="dark"] .theme-light {
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+[data-theme="dark"] .theme-dark {
+  opacity: 1;
+  font-weight: 800;
+}
+
+/* When navbar is fixed (scrolled down) */
+.navbar-custom.is-fixed .theme-toggle {
+  color: var(--text-color) !important;
+  text-shadow: none;
+}
+
+.navbar-custom.is-fixed .theme-toggle:hover {
+  color: var(--link-hover) !important;
+}
+
+/* Mobile navbar adjustments */
+@media only screen and (max-width: 767px) {
+  .theme-toggle-nav {
+    text-align: center;
+    padding: 5px 0;
+  }
+
+  .theme-toggle {
+    margin: 5px auto;
+  }
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

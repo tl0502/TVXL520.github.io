@@ -29,6 +29,11 @@
                         <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
                     </li>
                     {% endif %}{% endfor %}
+                    <li class="theme-toggle-nav">
+                        <button class="theme-toggle" aria-label="切换主题" title="切换主题">
+                            <span class="theme-light">明</span><span class="theme-separator">/</span><span class="theme-dark">暗</span>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
