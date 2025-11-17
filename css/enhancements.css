@@ -1,0 +1,138 @@
+/*!
+ * Enhanced Features Styles for TVXL Blog
+ * Lazy loading, scroll to top, reading progress bar
+ */
+
+/* ===========================
+   Lazy Loading Images
+   =========================== */
+
+/* Image while loading */
+img[data-src] {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+img.lazy-loading {
+  opacity: 0.6;
+}
+
+img.lazy-loaded {
+  filter: blur(0);
+  opacity: 1;
+}
+
+img.lazy-error {
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+/* ===========================
+   Scroll to Top Button
+   =========================== */
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--link-hover, #0085A1);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.scroll-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-to-top i {
+  pointer-events: none;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .scroll-to-top {
+  background-color: var(--link-hover, #4db8d8);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .scroll-to-top:hover {
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+/* ===========================
+   Reading Progress Bar
+   =========================== */
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(to right, #0085A1, #00A8CC);
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .reading-progress {
+  background: linear-gradient(to right, #4db8d8, #5dcfe0);
+}
+
+/* Ensure it's above navbar when navbar is fixed */
+.navbar-custom.is-fixed ~ .reading-progress {
+  top: 0;
+}
+
+/* ===========================
+   Loading Placeholder
+   =========================== */
+
+.image-placeholder {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+[data-theme="dark"] .image-placeholder {
+  background: linear-gradient(90deg, #2a2a2a 25%, #353535 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+}

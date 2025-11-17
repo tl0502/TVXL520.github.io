@@ -5,7 +5,8 @@
       "Bash(nul)",
       "Bash(del /F csshux-blog.css 2)",
       "Bash(dir:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

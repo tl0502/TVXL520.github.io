@@ -6,22 +6,33 @@
 (function() {
   'use strict';
 
+  // Constants
+  const MOBILE_BREAKPOINT = 768;
+  const RESIZE_DEBOUNCE_MS = 250;
+
+  // Cache DOM element
+  let navbar = null;
+
+  // Helper function to reset navbar position
+  function resetNavbarPosition() {
+    if (!navbar) {
+      navbar = document.querySelector('.navbar-custom');
+    }
+
+    if (navbar) {
+      navbar.classList.remove('is-fixed');
+      navbar.classList.remove('is-visible');
+      navbar.style.position = 'fixed';
+      navbar.style.top = '0';
+      navbar.style.transform = 'none';
+    }
+  }
+
   // Disable navbar scroll behavior on mobile/tablet
   function disableMobileNavbarScroll() {
-    // Check if screen width is less than 768px (mobile/tablet)
-    if (window.innerWidth < 768) {
-      // Find navbar element
-      var navbar = document.querySelector('.navbar-custom');
-      if (navbar) {
-        // Remove is-fixed and is-visible classes on mobile
-        navbar.classList.remove('is-fixed');
-        navbar.classList.remove('is-visible');
-
-        // Keep navbar at top without scroll behavior
-        navbar.style.position = 'fixed';
-        navbar.style.top = '0';
-        navbar.style.transform = 'none';
-      }
+    // Check if screen width is less than mobile breakpoint
+    if (window.innerWidth < MOBILE_BREAKPOINT) {
+      resetNavbarPosition();
     }
   }
 
@@ -32,23 +43,18 @@
     disableMobileNavbarScroll();
   }
 
-  // Run on window resize
-  var resizeTimer;
-  window.addEventListener('resize', function() {
+  // Run on window resize with debounce
+  let resizeTimer;
+  window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(disableMobileNavbarScroll, 250);
+    resizeTimer = setTimeout(disableMobileNavbarScroll, RESIZE_DEBOUNCE_MS);
   });
 
   // Override scroll behavior on mobile
-  if (window.innerWidth < 768) {
-    window.addEventListener('scroll', function() {
-      var navbar = document.querySelector('.navbar-custom');
-      if (navbar && window.innerWidth < 768) {
-        navbar.classList.remove('is-fixed');
-        navbar.classList.remove('is-visible');
-        navbar.style.position = 'fixed';
-        navbar.style.top = '0';
-        navbar.style.transform = 'none';
+  if (window.innerWidth < MOBILE_BREAKPOINT) {
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth < MOBILE_BREAKPOINT) {
+        resetNavbarPosition();
       }
     });
   }

@@ -7,12 +7,12 @@
   'use strict';
 
   // Search index - will be populated from posts
-  var searchIndex = [];
-  var searchModal = null;
-  var searchInput = null;
-  var searchResults = null;
-  var searchCloseBtn = null;
-  var searchIcon = null;
+  let searchIndex = [];
+  let searchModal = null;
+  let searchInput = null;
+  let searchResults = null;
+  let searchCloseBtn = null;
+  let searchIcon = null;
 
   // Initialize search functionality
   function initSearch() {
@@ -31,7 +31,7 @@
     buildSearchIndex();
 
     // Event listeners for all search icons
-    searchIcons.forEach(function(icon) {
+    searchIcons.forEach((icon) => {
       icon.addEventListener('click', openSearch);
     });
 
@@ -40,14 +40,14 @@
     }
 
     // Close on ESC key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && searchModal.classList.contains('active')) {
         closeSearch();
       }
     });
 
     // Close on background click
-    searchModal.addEventListener('click', function(e) {
+    searchModal.addEventListener('click', (e) => {
       if (e.target === searchModal) {
         closeSearch();
       }
@@ -59,9 +59,9 @@
     });
 
     // Prevent modal content clicks from closing
-    var modalContent = document.querySelector('.search-modal-content');
+    const modalContent = document.querySelector('.search-modal-content');
     if (modalContent) {
-      modalContent.addEventListener('click', function(e) {
+      modalContent.addEventListener('click', (e) => {
         e.stopPropagation();
       });
     }
@@ -70,31 +70,31 @@
   // Build search index from posts
   function buildSearchIndex() {
     // Get all post previews from the page
-    var postPreviews = document.querySelectorAll('.post-preview');
-    
-    postPreviews.forEach(function(preview) {
-      var link = preview.querySelector('a');
+    const postPreviews = document.querySelectorAll('.post-preview');
+
+    postPreviews.forEach((preview) => {
+      const link = preview.querySelector('a');
       if (!link) return;
 
-      var title = '';
-      var subtitle = '';
-      var content = '';
-      var url = link.getAttribute('href') || '';
+      let title = '';
+      let subtitle = '';
+      let content = '';
+      const url = link.getAttribute('href') || '';
 
       // Get title
-      var titleEl = preview.querySelector('.post-title');
+      const titleEl = preview.querySelector('.post-title');
       if (titleEl) {
         title = titleEl.textContent.trim();
       }
 
       // Get subtitle
-      var subtitleEl = preview.querySelector('.post-subtitle');
+      const subtitleEl = preview.querySelector('.post-subtitle');
       if (subtitleEl) {
         subtitle = subtitleEl.textContent.trim();
       }
 
       // Get content preview
-      var contentEl = preview.querySelector('.post-content-preview');
+      const contentEl = preview.querySelector('.post-content-preview');
       if (contentEl) {
         content = contentEl.textContent.trim();
       }
@@ -118,18 +118,18 @@
   function fetchSearchJSON() {
     // search.json should be at site root
     fetch('/search.json')
-      .then(function(response) {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         }
         throw new Error('Search index not found');
       })
-      .then(function(data) {
+      .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           searchIndex = data;
         }
       })
-      .catch(function(error) {
+      .catch((error) => {
         // Fallback to DOM-based search
         // console.log('Using DOM-based search');
       });
@@ -140,9 +140,9 @@
     if (searchModal) {
       searchModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      
+
       // Focus input after animation
-      setTimeout(function() {
+      setTimeout(() => {
         if (searchInput) {
           searchInput.focus();
         }
@@ -173,8 +173,8 @@
       return;
     }
 
-    var results = searchIndex.filter(function(item) {
-      var searchText = (item.title + ' ' + item.subtitle + ' ' + item.content).toLowerCase();
+    const results = searchIndex.filter((item) => {
+      const searchText = (item.title + ' ' + item.subtitle + ' ' + item.content).toLowerCase();
       return searchText.indexOf(query.toLowerCase()) !== -1;
     });
 
@@ -190,13 +190,13 @@
       return;
     }
 
-    var html = '<div class="search-results-list">';
-    
-    results.forEach(function(item) {
-      var title = highlightText(item.title, query);
-      var subtitle = item.subtitle ? '<div class="search-result-subtitle">' + highlightText(item.subtitle, query) + '</div>' : '';
-      var content = item.content ? '<div class="search-result-content">' + highlightText(item.content.substring(0, 150), query) + '...</div>' : '';
-      var url = item.url || '#';
+    let html = '<div class="search-results-list">';
+
+    results.forEach((item) => {
+      const title = highlightText(item.title, query);
+      const subtitle = item.subtitle ? '<div class="search-result-subtitle">' + highlightText(item.subtitle, query) + '</div>' : '';
+      const content = item.content ? '<div class="search-result-content">' + highlightText(item.content.substring(0, 150), query) + '...</div>' : '';
+      const url = escapeHtml(item.url || '#');
 
       html += '<a href="' + url + '" class="search-result-item">';
       html += '<div class="search-result-title">' + title + '</div>';
@@ -209,9 +209,9 @@
     searchResults.innerHTML = html;
 
     // Close modal when clicking a result
-    var resultItems = searchResults.querySelectorAll('.search-result-item');
-    resultItems.forEach(function(item) {
-      item.addEventListener('click', function() {
+    const resultItems = searchResults.querySelectorAll('.search-result-item');
+    resultItems.forEach((item) => {
+      item.addEventListener('click', () => {
         closeSearch();
       });
     });
@@ -220,14 +220,22 @@
   // Highlight search query in text
   function highlightText(text, query) {
     if (!text || !query) return text;
-    
-    var regex = new RegExp('(' + escapeRegex(query) + ')', 'gi');
+
+    const regex = new RegExp('(' + escapeRegex(query) + ')', 'gi');
     return text.replace(regex, '<mark>$1</mark>');
   }
 
   // Escape special regex characters
   function escapeRegex(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  // Escape HTML entities to prevent XSS
+  function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
   }
 
   // Initialize when DOM is ready

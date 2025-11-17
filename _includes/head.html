@@ -7,6 +7,14 @@
     <meta name="keyword"  content="{{ site.keyword }}">
     <link rel="shortcut icon" href="{{ site.baseurl }}/img/favicon.ico">
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ site.baseurl }}/manifest.json">
+    <meta name="theme-color" content="#0085A1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TVXL Blog">
+    <link rel="apple-touch-icon" href="{{ site.baseurl }}/img/avatar.png">
+
     <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
@@ -23,10 +31,13 @@
     <!-- Theme Switcher CSS -->
     <link rel="stylesheet" href="{{ "/css/theme.css" | prepend: site.baseurl }}">
 
+    <!-- Enhancements CSS (Lazy Load, Scroll to Top, Progress Bar) -->
+    <link rel="stylesheet" href="{{ "/css/enhancements.css" | prepend: site.baseurl }}">
+
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- change font-awesome CDN to qiniu -->
-    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
     <!-- Delete, sad but pending in China

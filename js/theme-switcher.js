@@ -6,16 +6,20 @@
 (function() {
   'use strict';
 
+  // Constants
   const THEME_KEY = 'tvxl-blog-theme';
   const THEME_DARK = 'dark';
   const THEME_LIGHT = 'light';
   const THEME_AUTO = 'auto';
+  const GISCUS_UPDATE_DELAY_MS = 100;
+  const GISCUS_LOAD_DELAY_MS = 1000;
 
   // Get user's saved preference or default to auto
   function getSavedTheme() {
     try {
       return localStorage.getItem(THEME_KEY) || THEME_AUTO;
     } catch (e) {
+      console.warn('Failed to read theme preference from localStorage:', e);
       return THEME_AUTO;
     }
   }
@@ -25,7 +29,7 @@
     try {
       localStorage.setItem(THEME_KEY, theme);
     } catch (e) {
-      console.warn('Failed to save theme preference');
+      console.warn('Failed to save theme preference to localStorage:', e);
     }
   }
 
@@ -66,7 +70,7 @@
     // Update Giscus theme if it exists (with a small delay to ensure iframe is ready)
     setTimeout(function() {
       updateGiscusTheme(actualTheme);
-    }, 100);
+    }, GISCUS_UPDATE_DELAY_MS);
   }
 
   // Toggle theme
@@ -156,7 +160,7 @@
               const savedTheme = getSavedTheme();
               const actualTheme = savedTheme === THEME_AUTO ? getSystemTheme() : savedTheme;
               updateGiscusTheme(actualTheme);
-            }, 1000);
+            }, GISCUS_LOAD_DELAY_MS);
           }
         });
       });
